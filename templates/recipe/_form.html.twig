@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.Preparation) }}
+    {{ form_row(form.imageFile) }}
+<div class="col-sm 8 col-sm-offset-2" id="ingredient_list" data-prototype="{{ form_widget(form.ingredient.vars.prototype)|e('html_attr') }}">
+    {% for ing in form.ingredient %}
+        <div class="panel panel-warning">
+            {{ form_row(ing) }}
+        </div>
+    {% endfor %}
+</div>
+<button class="m_input_champ m_inscription_submit m_no_margin_bottom j_validate">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+
+
+
+{% block javascripts %}
+    {#    {{ parent() }}#}
+    <script>
+
+    </script>
+
+{% endblock %}
+
+
+

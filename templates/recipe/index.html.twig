@@ -1,0 +1,297 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Recettes : les meilleures recettes de cuisine - recette classique, originale, exotique ...{% endblock %}
+
+{% block body  %}
+    <style>
+        input[type=text] {
+            width: 170px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+
+        input[type=text]:focus {
+            width: 100%;
+        }
+    </style>
+
+{#    code after style css#}
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="hdr-ctnr" id="header">
+        <header id="mrtn-header">
+            <div class="mrtn-header__top">
+                <div id="mrtn-navbar" class="search">
+                    <a href="{{ path('home') }}" class="mrtn-logo">
+                        <img height="100" width="100" src="/images/logo/logoF.png">
+                        <br>
+                    </a>
+
+                    <div class="separator"></div>
+                    <div class="mrtn-search-bar">
+                        {% if (searchByUser  == 0) %}
+
+
+                            <form id="form-header-search" method="get" action="" style="display:none">
+                                <input id="header-search__default-type" name="type" value="all">
+                                <input id="header-search-term" name="aqt">
+                            </form>
+                            <form id="header-search">
+						<span class="search-icon">
+							<i class="icon-icon_search"></i>
+						</span>
+                                {{ form_start(form_1) }}
+                                <span class="__secondary" >Je cherche  </span>
+                                {{ form_widget(form_1) }}
+                                {{ form_end(form_1) }}
+                                <span id="speechSearch" style="display:none;" class="show">
+							<i class="icon-icon_micro_on"></i>
+						</span>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="mrtn-login-zone">
+                    <div class="mrtn-login-link connected">
+                        <a >
+                            <span class="mrtn-avatar--empty--xlarge mrtn-avatar--empty mrtn-hide-on-print">{{ app.user.username|first }}</span></a>
+                        <div id="username" class="username">
+                            <a class="un" href="{{ path('recipe_post_user',{'username':app.user.username}) }}">{{ app.user.username}}</a>
+                            <br>
+                            <a href="{{ path('recipe_post_user',{'username':app.user.username}) }}" class="mrtn-btn mrtn-btn-secondary mrtn-btn-text-only mrtn-btn--small">Mes recettes</a>
+                            <a href="{{ path('security_logout') }}" class="mrtn-btn mrtn-btn-secondary mrtn-btn-text-only mrtn-btn--small">logOut</a>
+                        </div>
+                    </div></div>
+
+
+
+            </div>
+
+
+
+            <nav id="header-main-menu">
+                <ul>
+                    <li>
+                        <a class="header-main-menu__item" href="/home">Aujourd'hui</a>
+                    </li>
+                    <li>
+                        <a class="header-main-menu__item selected" href="#">Recettes</a>
+                    </li>
+                    <li>
+
+                        <a class="header-main-menu__item " href="{{ path('recipe_new') }}">Ajouter une recette</a>
+                    </li>
+                    <li >
+                        <a class="header-main-menu__item " href="{{ path('notification_all') }}">
+                            Notifications
+                            <span class="badge badge-danger" id="notification-count">
+                                <i class="fa fa-circle fa-circle-o-notch fa-spin " ></i>
+                                </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+        </header>
+    </div>
+
+    <div class="div-gpt-ad-banner_atf_wrapper af-banner" id="div-gpt-ad-banner_atf_wrapper" style="text-align: center;"><div id="div-gpt-ad-banner_atf"><script type="text/javascript">googletag.display("div-gpt-ad-banner_atf");afAd.detectOneCall("banner_atf");</script><div id="google_ads_iframe_229683329/marmiton/organic/others/banner_atf_0__container__" style="border: 0pt none; width: 1px; height: 1px;"></div></div></div><div id="content"><div class="hide j_overlay">
+
+    </div>
+
+    {% if (searchByUser  == 0) %}
+
+        <div>
+            <img src="https://cdn3.iconfinder.com/data/icons/financial-28/16/v2_search-small-512.png" alt="" width="3%">
+            <form>
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+            {{ form_end(form) }}
+            </form>
+
+            {#            <div align="center" class="container">#}
+{#                {{ form_start(form) }}#}
+{#                <div class="form-row align-items-end" >#}
+{#                    <div class="mrtn-search-input">#}
+{#                        {{ form_row(form) }}#}
+{#                    </div>#}
+{#                    <div class="col">#}
+{#                        <div class="form-group">#}
+{#                            <button class="btn btn-primary">Search Ingredient</button>#}
+{#                        </div>#}
+{#                    </div>#}
+
+{#                </div>#}
+{#                {{ form_end(form) }}#}
+{#            </div>#}
+        </div>
+    {% endif %}
+
+
+
+    <div class="recipe-results fix-inline-block">
+        {% for recipe in recipes %}
+            <div class="recipe-card">
+                <a class="recipe-card-link" href="{{ path('recipe_show', {'id': recipe.id}) }}">
+                    <div class="recipe-card__picture">
+
+                        {% if recipe.filename %}
+
+                            <img src="/images/recipes/{{ recipe.filename }} " alt="Recipe">
+
+                        {% else %}
+
+                            <img src="/images/recipes/NoImageFound.jpg" alt="Recipe" >
+
+                        {% endif %}
+
+                        <ul class="recipe-card__tags">
+                            {% if is_granted('edit',recipe) %}
+                                <li class="mrtn-tag mrtn-tag--dark">
+                                    <a href="{{ path('recipe_edit', {'id': recipe.id}) }}"> edit</a>
+                                </li>
+
+                            {% else %}
+                                <li class="mrtn-tag mrtn-tag--dark">
+                                    <a href={{ path('recipe_post_user',{'username':recipe.user.username}) }}>{{ recipe.user.username }}</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="recipe-card__title">{{ recipe.name }}</h4>
+                        <font color="#ff6f61"><span class="icon-icon_heart"> {{ recipe.getLikedBy.count }}</span></font>
+                        {% set sumratings = 0 %}
+                        {% set count = 0 %}
+                        {% for recipe in recipe.recipeRank %}
+                            {% set sumratings = sumratings + recipe.mark %}
+                            {% set count = count+1 %}
+                        {% endfor %}
+                        {% if (count!=0) %}
+                            {% set rank=sumratings // count %}
+                        {% else %}
+                            {% set rank=0 %}
+                            <div class="recipe-card__rating">
+                                <div class="mrtn-stars" data-mode="readonly">
+                                    <span class="icon-star-half icon-icon_star_empty mrtn-star"></span>
+                                    <span class="icon-star-half icon-icon_star_empty mrtn-star"></span>
+                                    <span class="icon-star-half icon-icon_star_empty mrtn-star"></span>
+                                    <span class="icon-star-half icon-icon_star_empty mrtn-star"></span>
+                                    <span class="icon-star-half icon-icon_star_empty mrtn-star"></span>
+
+
+                                </div>
+                                <span class="mrtn-font-discret">sur {{count}} avis</span>
+                            </div>
+                        {% endif %}
+                        <hr class="recipe-card__title-separator">
+                        {% if (rank!=0) %}
+                            <div class="recipe-card__rating">
+                                <div class="mrtn-stars" data-mode="readonly">
+                                    {#                                <span class="icon-star-half icon-icon_star_halfempty mrtn-star"></span>#}
+
+                                    {% for i in 0..rank-1 %}
+                                        <span class="icon-star-full-active icon-icon_star_full mrtn-star"></span>
+                                    {% endfor %}
+
+                                </div>
+                                <span class="mrtn-font-discret">sur {{count}} avis</span>
+                            </div>
+                        {% endif %}
+                        <div class="recipe-card__description">
+
+                            <b>Description</b> : {{ recipe.Preparation }}
+                        </div>
+
+                        <div class="recipe-card__duration">
+                            <i class="icon-icon_time"></i>&nbsp; <span class="recipe-card__duration__value">Time</span>
+                        </div>
+
+                    </div>
+
+                </a>
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+    </div>
+</div>
+<footer id="mrtn-footer">
+    <div class="foot-content">
+        <div class="go-to-top">
+            <i class="icon-rot-180 icon-icon_arrow_bottom mrtn-text-center"></i>
+        </div>
+        <p class="socials-items mrtn-text-center">
+            <a href="https://www.pinterest.com.au/wajihg/" class="_blank social-icon-holder">
+                <i class="icon-pinterest"></i>
+            </a>
+            <a href="https://www.facebook.com/wajih.ghali" class="_blank social-icon-holder">
+                <i class="icon-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/wajih_ghali/" class="_blank social-icon-holder">
+                <i class="icon-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCnxs3iBQ0D1dabawhNobEag?view_as=subscriber" class="social-icon-holder">
+                <i class="icon-youtube"></i>
+            </a>
+            <a href="https://assistant.google.com/services/invoke/uid/00000058f69ad4c0" class="_blank social-icon-holder">
+                <i class="icon-googleassistant"></i>
+            </a>
+        </p>
+        <div class="padded-content">
+            <div class="mrtn-autopromo-ctnr">
+                <a href="https://play.google.com/store/apps/details?id=com.cookware.worldcusinerecipes" class="_blank mrtn-autopromo">
+                    <span class="img-iphone"><img src="https://static.afcdn.com/relmrtn/Front/Component/footerLight/assets/iPhone.png" alt="Iphone" /></span>
+                    <p class="title-4">Retrouvez Hamhama où que vous soyez en téléchargeant l'application</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {% if is_granted('ROLE_USER') %}
+        <script>
+            function fetchNotificationCount()
+            {
+                fetch(
+                    '{{ path('notification_unread') }}',
+                    {'credentials':'include'}
+                ).then(function(response){
+                    response.json().then(function (json) {
+                        document.getElementById('notification-count').innerText=json.count;
+                        setTimeout(fetchNotificationCount,5000)
+                    });
+                }).catch(function (reason) {
+
+                });
+            }
+            fetchNotificationCount();
+        </script>
+    {% endif %}
+{% endblock %}
+

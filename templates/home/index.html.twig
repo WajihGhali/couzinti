@@ -1,0 +1,346 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hamhama : 70000 recettes de cuisine ! Recettes commentées et notées pour toutes les cuisines. Recette de cuisine. - Accueil - Hamhama.com{% endblock %}
+
+{% block body %}
+
+    {% if is_granted('ROLE_USER') %}
+        <div class="hdr-ctnr" id="header">
+            <header id="mrtn-header">
+                <div id="mrtn-navsearch" class="search search--extended">
+                    <input id="fake-search-field2" name="aqt" type="search" placeholder="Je cherche une recette">
+                </div>
+                <div class="mrtn-header__top">
+                    <div id="mrtn-navbar" class="search">
+                        <a href="{{ path('home') }}" class="mrtn-logo">
+                            <img height="100" width="100" src="/images/logo/logoF.png">
+                            <br>
+                        </a>
+{#                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+{#                        <li class="nav-item text-nowrap border-right border-secondary">#}
+{#                            <a class="nav-link" href="{{ path('notification_all') }}">#}
+{#                                Notifications#}
+{#                                <span class="badge badge-light" id="notification-count">#}
+{#                                <i class="fa fa-circle fa-circle-o-notch fa-spin " ></i>#}
+{#                                </span>#}
+{#                            </a>#}
+{#                        </li>#}
+                        <div class="separator"></div>
+                        <a class="mrtn-search">
+                            <i class="icon-icon_search"></i>
+                        </a>
+                        <a href="#" class="mrtn-whipe">
+                            <i class="icon-fouet"></i>
+                            <a href="#" class="mrtn-special-link">
+                                <img class="header-icon-noel" src="https://assets.afcdn.com/recipe/20191106/102027_w96cxt0cyt0cxb177cyb177.png" />
+                            </a>
+
+                            <a href="/astuce-assiette-sc28.html" class="mrtn-special-link">
+                                <img class="header-icon-noel" src="https://assets.afcdn.com/recipe/20190118/86319_w96h96c1.png" />
+                            </a>
+
+                            <div class="separator"></div>
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+                            {#                    <div class="mrtn-search-bar">#}
+                            {#                        <form id="form-header-search" method="get" action="/recettes/recherche.aspx" style="display:none">#}
+                            {#                            <input id="header-search__default-type" name="type" value="all"/>#}
+                            {#                            <input id="header-search-term" name="aqt" />#}
+                            {#                        </form>#}
+                            {#                        <form id="header-search">#}
+                            {#						<span class="search-icon">#}
+                            {#							<i class="icon-icon_search"></i>#}
+                            {#						</span>#}
+                            {#                            <span class="__secondary">Je cherche</span>#}
+                            {#                            <input id="mrtn-search-input" class="mrtn-search-input" name="aqt" placeholder="une recette, un ingrédient, de l'aide..." value="" />#}
+                            {#                            <span id="speechSearch" style="display:none;">#}
+                            {#							<i class="icon-icon_micro_on"></i>#}
+                            {#						</span>#}
+                            {#                        </form>#}
+                            {#                    </div>#}
+
+
+                            <div class="separator"></div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="mrtn-login-zone">
+                                <div class="mrtn-login-link connected">
+                                    <a >
+                                        <span class="mrtn-avatar--empty--xlarge mrtn-avatar--empty mrtn-hide-on-print">{{ app.user.username|first }}</span></a>
+                                    <div id="username" class="username">
+                                        <a class="un" href="{{ path('recipe_post_user',{'username':app.user.username}) }}">{{ app.user.username}}</a>
+                                        <br>
+                                        <a href="{{ path('recipe_post_user',{'username':app.user.username}) }}" class="mrtn-btn mrtn-btn-secondary mrtn-btn-text-only mrtn-btn--small">Mes recettes</a>
+                                        <a href="{{ path('security_logout') }}" class="mrtn-btn mrtn-btn-secondary mrtn-btn-text-only mrtn-btn--small">logOut</a>
+                                    </div>
+                                </div></div>
+                    </div>
+                </div>
+
+                <nav id="header-main-menu">
+                    <ul>
+                        <li>
+                            <a class="header-main-menu__item selected" href="#">Aujourd'hui</a>
+                        </li>
+                        <li>
+                            <a class="header-main-menu__item" href="{{ path('recipe_index') }}">Recettes</a>
+                        </li>
+                        <li>
+
+                            <a class="header-main-menu__item " href="{{ path('recipe_new') }}">Ajouter une recette</a>
+                        </li>
+                        <li >
+                            <a class="header-main-menu__item " href="{{ path('notification_all') }}">
+                                Notifications
+                                <span class="badge badge-danger" id="notification-count">
+                                <i class="fa fa-circle fa-circle-o-notch fa-spin " ></i>
+                                </span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+
+
+
+        <div class="recipe-home-search">
+            <div class="recipe-home-search__background" style="background-image: url(https://assets.afcdn.com/recipe/20120503/15347_w1200h320c1cx1750cy1140.jpg)">
+            </div>
+
+            <div class="recipe-home-search__content">
+                <div class="recipe-home-search__search-content">
+                    <p><span class="avoid-wrap">Trouver une recette,</span><span class="avoid-wrap">&nbsp;une idée, une photo...</span></p>
+
+                    {#            <div class="recipe-home-search__search-bar-wrapper">#}
+                    {#                <form id="recipe-home-search__form" method="get" action="">#}
+                    {#                    <div class="recipe-home-search__search-bar">#}
+                    {#                        <input class="recipe-home-search__search-bar-input" name="aqt" placeholder="Parmi 72 663 recettes, 3 978 photos, 35 803 likes , 5 874 ranks">#}
+                    {#                        <button type="submit" class="search-icon"><i class="icon-icon_search"></i></button>#}
+                    {#                    </div>#}
+                    {#                </form>#}
+                    {#            </div>#}
+
+
+                    {#   <div class="recipe-home-search__search-links">
+                           <a href="/recettes/recherche.aspx?type=all&st=2"><i class="icon-arrow-right"></i><span>Recherche ++</span></a>
+                           <a href="/recettes/recherche.aspx?st=1"><i class="icon-arrow-right"></i><span>Par ingrédients</span></a>
+                       </div>#}
+
+                </div>
+                <div class="m_nom_recette">
+                    <div class="m_carre_titre"></div>
+                    <div class="m_lien_nom_recette">
+                        <a >Lasagnes végétariennes sans béchamel</a>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="m_global">
+            <div class="af_contentBack m_site">
+                <div class="m_content_div_home">
+
+                    {% for recipe in recipes %}
+
+                        <div class="m_bloc rad16">
+                            <a href="{{ path('recipe_show', {'id': recipe.id}) }}">
+                                <div class="m_image_bloc">
+                                    <div class="m_cartouche"></div>
+                                    {% if recipe.filename %}
+                                        <div >
+                                            {#        <img src="/images/properties/{{ property.filename }} " alt="card-img-top" style="width: 100%; height: auto;">#}
+                                            <img src="{{ vich_uploader_asset(recipe,'imageFile')}}" alt="card-img-top" onload="if(typeof(m_lstBloc)!='undefined')m_lstBloc.removeWaitLoaded();">
+                                        </div>
+                                    {% else %}
+                                        <img src="/images/recipes/NoImageFound.jpg" alt="card-img-top" onload="if(typeof(m_lstBloc)!='undefined')m_lstBloc.removeWaitLoaded();">
+                                    {% endif %}
+                                    <div class="m_cartouche"></div>
+                                </div>
+                                <div class="m_contenu_bloc">
+                                    <div class="m_text_bloc_wrapper">
+                                        <div class="m_titre_bloc txt_rouge"><div>{{ recipe.name }}</div>
+                                            {% for recipe in recipe.ingredient %}
+                                                <h5>-{{recipe.nameIng}}</h5>
+                                            {% endfor %}
+                                        </div></div>
+                                    <div class="m_type_bloc bg_rouge">
+
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    {% else %}
+        <div class="hdr-ctnr" id="header">
+            <header id="mrtn-header">
+                <div id="mrtn-navsearch" class="search search--extended">
+                    <input id="fake-search-field2" name="aqt" type="search" placeholder="Je cherche une recette">
+                </div>
+                <div class="mrtn-header__top">
+                    <div id="mrtn-navbar" class="search">
+                        <a href="{{ path('home') }}" class="mrtn-logo">
+                            <img height="100" width="100" src="/images/logo/logoF.png">
+                            <br>
+                        </a>
+                        <div class="separator"></div>
+                        <a class="mrtn-search">
+                            <i class="icon-icon_search"></i>
+                        </a>
+                        <a href="/recettes/selections.aspx" class="mrtn-whipe">
+                            <i class="icon-fouet"></i>
+                            <a href="#" class="mrtn-special-link">
+                                <img class="header-icon-noel" src="https://assets.afcdn.com/recipe/20191106/102027_w96cxt0cyt0cxb177cyb177.png" />
+                            </a>
+
+                            <a class="mrtn-special-link">
+                                <img class="header-icon-noel" src="https://assets.afcdn.com/recipe/20190118/86319_w96h96c1.png" />
+                            </a>
+
+                            <div class="separator"></div>
+                    </div>
+
+
+                    <div class="mrtn-login-zone">
+                        <a href="{{ path('security_login') }}" class="mrtn-login-link mrtn-login-link--disconnected mrtn-btn mrtn-btn-primary">
+                            <i class="icon-icon_profile" ></i><span>Sign in</span>
+
+                        </a>
+                        &nbsp &nbsp
+                        <a href="{{ path('user_register') }}" class="mrtn-login-link mrtn-login-link--disconnected mrtn-btn mrtn-btn-primary">
+                            <i class="icon-icon_profile"></i>  <span> Register</span>
+                        </a>
+                    </div>
+
+                </div>
+            </header>
+
+
+        </div>
+        <div>
+
+        </div>
+        <div>
+
+        </div>
+
+
+        <div class="recipe-home-search">
+            <div class="recipe-home-search__background" style="background-image: url(https://assets.afcdn.com/recipe/20120503/15347_w1200h320c1cx1750cy1140.jpg)">
+            </div>
+
+            <div class="recipe-home-search__content">
+                <div class="recipe-home-search__search-content">
+                    <br> <p><span class="avoid-wrap">On Vous Aide A Preparer Vos Recettes</span></p></br>
+                </div>
+                <div class="m_nom_recette">
+                    <div class="m_carre_titre"></div>
+                    <div class="m_lien_nom_recette">
+                        <a> Lasagnes végétariennes sans béchamel</a>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="m_global">
+            <div class="af_contentBack m_site">
+                <div class="m_content_div_home">
+                    {% for recipe in recipes %}
+                        <div class="m_bloc rad16">
+                            <div class="m_image_bloc">
+                                <div class="m_cartouche"></div>
+                                {% if recipe.filename %}
+                                    <div >
+                                        {#        <img src="/images/properties/{{ property.filename }} " alt="card-img-top" style="width: 100%; height: auto;">#}
+                                        <img src="{{ vich_uploader_asset(recipe,'imageFile')}}" alt="card-img-top" onload="if(typeof(m_lstBloc)!='undefined')m_lstBloc.removeWaitLoaded();">
+                                    </div>
+                                {% else %}
+                                    <img src="/images/recipes/NoImageFound.jpg" alt="card-img-top" onload="if(typeof(m_lstBloc)!='undefined')m_lstBloc.removeWaitLoaded();">
+                                {% endif %}
+                                <div class="m_cartouche"></div>
+                            </div>
+                            <div class="m_contenu_bloc">
+                                <div class="m_text_bloc_wrapper">
+                                    <div class="m_titre_bloc txt_rouge"><div>{{ recipe.name }}</div>
+                                        {% for recipe in recipe.ingredient %}
+                                            <h5>-{{recipe.nameIng}}</h5>
+                                        {% endfor %}
+                                    </div></div>
+                                <div class="m_type_bloc bg_rouge">
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class="pagination">
+        {{ knp_pagination_render(recipes) }}
+    </div>
+<footer id="mrtn-footer">
+    <div class="foot-content">
+        <div class="go-to-top">
+            <i class="icon-rot-180 icon-icon_arrow_bottom mrtn-text-center"></i>
+        </div>
+        <p class="socials-items mrtn-text-center">
+            <a href="https://www.pinterest.com.au/wajihg/" class="_blank social-icon-holder">
+                <i class="icon-pinterest"></i>
+            </a>
+            <a href="https://www.facebook.com/wajih.ghali" class="_blank social-icon-holder">
+                <i class="icon-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/wajih_ghali/" class="_blank social-icon-holder">
+                <i class="icon-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCnxs3iBQ0D1dabawhNobEag?view_as=subscriber" class="social-icon-holder">
+                <i class="icon-youtube"></i>
+            </a>
+            <a href="https://assistant.google.com/services/invoke/uid/00000058f69ad4c0" class="_blank social-icon-holder">
+                <i class="icon-googleassistant"></i>
+            </a>
+        </p>
+        <div class="padded-content">
+            <div class="mrtn-autopromo-ctnr">
+                <a href="https://play.google.com/store/apps/details?id=com.cookware.worldcusinerecipes" class="_blank mrtn-autopromo">
+                    <span class="img-iphone"><img src="https://static.afcdn.com/relmrtn/Front/Component/footerLight/assets/iPhone.png" alt="Iphone" /></span>
+                    <p class="title-4">Retrouvez Hamhama où que vous soyez en téléchargeant l'application</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br>
+{% endblock %}
+
+{% block javascripts %}
+    {% if is_granted('ROLE_USER') %}
+        <script>
+            function fetchNotificationCount()
+            {
+                fetch(
+                    '{{ path('notification_unread') }}',
+                    {'credentials':'include'}
+                ).then(function(response){
+                    response.json().then(function (json) {
+                        document.getElementById('notification-count').innerText=json.count;
+                        setTimeout(fetchNotificationCount,5000)
+                    });
+                }).catch(function (reason) {
+
+                });
+            }
+            fetchNotificationCount();
+        </script>
+    {% endif %}
+{% endblock %}
+

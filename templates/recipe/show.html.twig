@@ -1,0 +1,295 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipe{% endblock %}
+
+{% block body %}
+<div class="hdr-ctnr" id="header">
+    <header id="mrtn-header">
+
+        <div class="mrtn-header__top">
+            <div id="mrtn-navbar" class="search">
+
+                <a href="{{ path('home') }}" class="mrtn-logo">
+                    <img height="100" width="100" src="/images/logo/logoF.png">
+                    <br>
+
+                </a>
+                <div class="separator"></div>
+
+            </div>
+            <div class="separator"></div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="mrtn-login-zone">
+                <div class="mrtn-login-link connected">
+                    <a >
+                        <span class="mrtn-avatar--empty--xlarge mrtn-avatar--empty mrtn-hide-on-print">{{ app.user.username|first }}</span></a>
+                    <div id="username" class="username">
+                        <a class="un" href="{{ path('recipe_post_user',{'username':app.user.username}) }}">{{ app.user.username}}</a>
+                        <br>
+                        <a href="{{ path('recipe_post_user',{'username':app.user.username}) }}" class="mrtn-btn mrtn-btn-secondary mrtn-btn-text-only mrtn-btn--small">Mes recettes</a>
+                        <a href="{{ path('security_logout') }}" class="mrtn-btn mrtn-btn-secondary mrtn-btn-text-only mrtn-btn--small">logOut</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+        <nav id="header-main-menu">
+            <ul>
+                <li>
+                    <a class="header-main-menu__item" href="/home">Aujourd'hui</a>
+                </li>
+                <li>
+                    <a class="header-main-menu__item " href="{{ path('recipe_index') }}">Recettes</a>
+                </li>
+                <li>
+
+                    <a class="header-main-menu__item " href="{{ path('recipe_new') }}">Ajouter une recette</a>
+                </li>
+
+            </ul>
+        </nav>
+
+    </header>
+</div>
+<div class="div-gpt-ad-banner_atf_wrapper af-banner" id="div-gpt-ad-banner_atf_wrapper" style="text-align: center;">
+    <div id="div-gpt-ad-banner_atf">
+        <div id="google_ads_iframe_229683329/marmiton/organic/others/banner_atf_0__container__" style="border: 0pt none; width: 1px; height: 1px;"></div>
+    </div>
+</div>
+<div id="content">
+    <div class="hide j_overlay">
+
+    </div>
+    <div class="m_inscription_introduction_bulle">
+        <div class="padded-content content-recipe">
+
+            <h1 class="main-title ">{{ recipe.name }}</h1>
+            <hr class="recipe-separator">
+
+            <div class="recipe-author__container">
+                <div class="recipe-author">
+                    <div class="recipe-author__author">
+
+                        <a href="" rel="nofollow" >
+                            <span class="recipe-author__picture mrtn-avatar--empty mrtn-hide-on-print">{{ recipe.user.username|first }}</span>
+                        </a>
+                        {% if is_granted('edit',recipe) %}
+                        <div>
+
+                            <div class="recipe-author__more-recipe">
+                            <br>
+{#                                    <button href="{{ path('recipe_edit', {'id': recipe.id}) }}" class="btn btn-outline-success">edit</button><br>#}
+                                    <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">edit</a><br>
+                                     <br>{{ include('recipe/_delete_form.html.twig') }}
+                            <div>
+                        {% else %}
+
+                                    <a href="" rel="nofollow" >
+                                        <span class="recipe-author__name">{{ recipe.user.username }}</span>
+                                    </a>
+                                    <div class="recipe-author__more-recipe">
+                                <a id="recipe-author__more-recipe-link" href="{{ path('recipe_post_user',{'username':recipe.user.username}) }}">
+                                    plus de recettes<i class="icon-icon_arrow_small icon-rot-180"></i></a>
+                        {% endif %}
+                                <br>
+                                {{ recipe.time|date("d/m/Y h:m") }}
+
+
+
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {% if recipe.filename %}
+
+        <div align="center" class="polaroid">
+            <img src="/images/recipes/{{ recipe.filename }}" alt="5 Terre" style="width:100%">
+            <div class="container">
+                <p align="center">
+                    {% set isLiked = recipe.getLikedBy.contains(app.user) %}
+
+                <div class="pt-2">
+
+                    <button style="display: {% if not isLiked %}block{% else %}none{% endif %}"
+                            class="btn btn-outline-secondary btn-sm" id="like">Like
+                        <span class="badge badge-light" id="likes-like">{{ recipe.getLikedBy.count }}</span>
+                    </button>
+                    </span>
+
+                    <button style="display: {% if isLiked %}block{% else %}none{% endif %}"
+                            class="btn btn-outline-danger btn-sm" id="unlike">Unlike
+                        <span class="badge badge-light" id="likes-unlike">{{ recipe.getLikedBy.count }}</span>
+                    </button>
+                </div>
+                </p>
+            </div>
+        </div>
+        {% else %}
+        <div align="center" class="polaroid">
+            <img src="/images/recipes/NoImageFound.jpg" alt="5 Terre" style="width:100%">
+            <div class="container">
+                <p>
+                    {% set isLiked = recipe.getLikedBy.contains(app.user) %}
+
+                <div class="pt-2">
+                    <button style="display: {% if not isLiked %}block{% else %}none{% endif %}"
+                            class="btn btn-outline-secondary btn-sm" id="like">Like
+                        <span class="badge badge-light" id="likes-like">{{ recipe.getLikedBy.count }}</span>
+                    </button>
+
+                    <button style="display: {% if isLiked %}block{% else %}none{% endif %}"
+                            class="btn btn-outline-danger btn-sm" id="unlike">Unlike
+                        <span class="badge badge-light" id="likes-unlike">{{ recipe.getLikedBy.count }}</span>
+                    </button>
+                </div>
+                </p>
+            </div>
+        </div>
+        {% endif %}
+
+
+        <div class="separator"></div>
+
+   <div class="jumbotron">
+       <div class="align float-left" ><font color="#d2691e" > name :</font></div><br>
+       <div class="align float-left">{{ recipe.name }}</div><br>
+       <div class="align float-left"><font color="#d2691e" > Preparation :</font></div><br>
+       <div class="align float-left">{{ recipe.preparation }}</div><br>
+       <div class="align float-left"><font color="#d2691e" > Ingredients :</font></div><br>
+       {% for ingredient in ingredients %}
+            <div class="align float-left">-{{ ingredient.nameIng}}</div><br>
+       {% endfor %}
+  </div>
+
+
+
+         {{ form_start(form) }}
+            <button class="btn btn-primary">{{ button_label|default('Rank it') }}</button>
+         {{ form_end(form) }}
+
+
+
+           {{ form_start(formComment) }}
+            <button class="btn btn-secondary">{{ button_label|default('+Add Comment') }}</button>
+            {{ form_end(formComment) }}
+
+
+        {% for comment in recipe.recipeComment %}
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <div class="w3-container">
+          <div class="w3-card-4" style="width:100%">
+            <div class="w3-container">
+              <hr>
+                <span class="mrtn-avatar--empty--xlarge mrtn-avatar--empty mrtn-hide-on-print" style="width:50%">{{ comment.commentUser.fullname|first }}</span><br>
+                @{{ comment.commentUser.fullname }}:<br>
+              <p>{{ comment.content }}</p><br>
+              <div align="right">{{ comment.time|date("d/m/Y H:i")}}</div>
+            </div>
+          </div>
+        </div>
+        <br>
+  {% endfor %}
+  <br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+
+<footer id="mrtn-footer">
+    <div class="foot-content">
+        <div class="go-to-top">
+            <i class="icon-rot-180 icon-icon_arrow_bottom mrtn-text-center"></i>
+        </div>
+        <p class="socials-items mrtn-text-center">
+            <a href="https://www.pinterest.com.au/wajihg/" class="_blank social-icon-holder">
+                <i class="icon-pinterest"></i>
+            </a>
+            <a href="https://www.facebook.com/wajih.ghali" class="_blank social-icon-holder">
+                <i class="icon-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/wajih_ghali/" class="_blank social-icon-holder">
+                <i class="icon-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCnxs3iBQ0D1dabawhNobEag?view_as=subscriber" class="social-icon-holder">
+                <i class="icon-youtube"></i>
+            </a>
+            <a href="https://assistant.google.com/services/invoke/uid/00000058f69ad4c0" class="_blank social-icon-holder">
+                <i class="icon-googleassistant"></i>
+            </a>
+        </p>
+        <div class="padded-content">
+            <div class="mrtn-autopromo-ctnr">
+                <a href="https://play.google.com/store/apps/details?id=com.cookware.worldcusinerecipes" class="_blank mrtn-autopromo">
+                    <span class="img-iphone"><img src="https://static.afcdn.com/relmrtn/Front/Component/footerLight/assets/iPhone.png" alt="Iphone" /></span>
+                    <p class="title-4">Retrouvez Hamhama où que vous soyez en téléchargeant l'application</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br>
+
+
+{% endblock %}
+
+{% block javascripts %}
+        {{ parent() }}
+
+
+    <script>
+        var likeButton = document.getElementById('like');
+        var unlikeButton = document.getElementById('unlike');
+
+        addOnClick(
+            likeButton,
+            unlikeButton,
+            document.getElementById('likes-unlike'),
+            '{{ path('likes_like', {'id': recipe.id}) }}'
+        );
+
+        addOnClick(
+            unlikeButton,
+            likeButton,
+            document.getElementById('likes-like'),
+            '{{ path('likes_unlike', {'id': recipe.id}) }}'
+        );
+
+        function switchButtons(button, oppositeButton) {
+            button.disabled = false;
+            button.style.display = 'none';
+            oppositeButton.style.display = 'block';
+        }
+
+        function addOnClick(button, oppositeButton, likeCount, path) {
+            button.addEventListener('click', function (event) {
+                {% if not app.user %}
+                return window.location.replace('{{ path('user_register') }}');
+                {% endif %}
+
+                button.disabled = true;
+
+                fetch(path, {'credentials': 'include'}).then(function (response) {
+                    response.json().then(function (json) {
+                        likeCount.innerText = json.count;
+                        switchButtons(button, oppositeButton);
+                    })
+                }).catch(function () {
+                    switchButtons(button, oppositeButton);
+                });
+
+                event.preventDefault();
+            });
+        }
+    </script>
+{% endblock %}

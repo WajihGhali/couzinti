@@ -1,0 +1,74 @@
+{% extends 'home/index.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <a class="btn-outline-primary" href="{{ path('recipe_index') }}">Retour</a><br>
+    <div class="card">
+        {% if notifications|length %}
+            <div class="card-body">
+                <h5>{{ 'Unread notifications'}}</h5>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a class="btn btn-block btn-default btn-link btn-outline-info"
+                       href="{{ path('notification_acknowledge_all') }}">
+                        {{ 'Mark all as read'}}
+                    </a>
+                </li>
+                {% for notification in notifications %}
+                    <li class="list-group-item">
+                        <a href="{{ path('notification_acknowledge', {'id': notification.id}) }}"
+                           class="btn btn-sm btn-primary float-right">
+                            OK
+                        </a>
+                        {% if notification is like %}
+                            <a href="{{ path('recipe_post_user', {'username': notification.likedBy.username}) }}">
+                                {{ notification.likedBy.username }}</a>
+                            {{ 'likes your'|trans }}
+                            <a href="{{ path('recipe_show', {'id': notification.recipe.id}) }}">post</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="card-body">
+                {{ 'You have not notifications' }}
+            </div>
+        {% endif %}
+    </div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<footer id="mrtn-footer">
+    <div class="foot-content">
+        <div class="go-to-top">
+            <i class="icon-rot-180 icon-icon_arrow_bottom mrtn-text-center"></i>
+        </div>
+        <p class="socials-items mrtn-text-center">
+            <a href="https://www.pinterest.com.au/wajihg/" class="_blank social-icon-holder">
+                <i class="icon-pinterest"></i>
+            </a>
+            <a href="https://www.facebook.com/wajih.ghali" class="_blank social-icon-holder">
+                <i class="icon-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/wajih_ghali/" class="_blank social-icon-holder">
+                <i class="icon-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCnxs3iBQ0D1dabawhNobEag?view_as=subscriber" class="social-icon-holder">
+                <i class="icon-youtube"></i>
+            </a>
+            <a href="https://assistant.google.com/services/invoke/uid/00000058f69ad4c0" class="_blank social-icon-holder">
+                <i class="icon-googleassistant"></i>
+            </a>
+        </p>
+        <div class="padded-content">
+            <div class="mrtn-autopromo-ctnr">
+                <a href="https://play.google.com/store/apps/details?id=com.cookware.worldcusinerecipes" class="_blank mrtn-autopromo">
+                    <span class="img-iphone"><img src="https://static.afcdn.com/relmrtn/Front/Component/footerLight/assets/iPhone.png" alt="Iphone" /></span>
+                    <p class="title-4">Retrouvez Hamhama où que vous soyez en téléchargeant l'application</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br>
+{% endblock %}

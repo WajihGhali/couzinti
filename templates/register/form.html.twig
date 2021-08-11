@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rejoindre HAMHAMA{% endblock %}
+
+{% block body %}
+    <body class=" body-domuser-tn"><div id="didomi-host"></div><iframe name="__cmpLocator" title="cmpLocator" style="display: none;"></iframe>
+    <div class="hdr-ctnr" id="header">
+        <header id="mrtn-header">
+            <div id="mrtn-navsearch" class="search search--extended">
+                <input id="fake-search-field2" name="aqt" type="search" placeholder="Je cherche une recette">
+            </div>
+            <div class="mrtn-header__top">
+                <div id="mrtn-navbar" class="search">
+                    <a href="{{ path('home') }}" class="mrtn-logo">
+                        <img height="100" width="100" src="/images/logo/logoF.png">
+                        <br>
+                    </a>
+                    <div class="separator"></div>
+                    <a class="mrtn-search">
+                        <i class="icon-icon_search"></i>
+                    </a>
+                    <a href="/recettes/selections.aspx" class="mrtn-whipe">
+                        <i class="icon-fouet"></i>
+                        <a href="https://www.marmiton.org/dossier-noel/" class="mrtn-special-link">
+                            <img class="header-icon-noel" src="https://assets.afcdn.com/recipe/20191106/102027_w96cxt0cyt0cxb177cyb177.png" />
+                        </a>
+
+                        <a href="/astuce-assiette-sc28.html" class="mrtn-special-link">
+                            <img class="header-icon-noel" src="https://assets.afcdn.com/recipe/20190118/86319_w96h96c1.png" />
+                        </a>
+
+                        <div class="separator"></div>
+
+
+
+                </div>
+
+
+                <div class="mrtn-login-zone">
+                    <a href="{{ path('security_login') }}" class="mrtn-login-link mrtn-login-link--disconnected mrtn-btn mrtn-btn-primary">
+                        <i class="icon-icon_profile" ></i><span>Sign in</span>
+
+                    </a>
+                    &nbsp &nbsp
+                    <a href="{{ path('user_register') }}" class="mrtn-login-link mrtn-login-link--disconnected mrtn-btn mrtn-btn-primary">
+                        <i class="icon-icon_profile"></i>  <span> Register</span>
+                    </a>
+                </div>
+
+            </div>
+        </header>
+
+        <div id="close-menu-mobile" class="close-menu-mobile">
+            <i class="icon-icon_cross_big"></i>
+        </div>
+        <div id="drawer">
+            <div class="nav-wrapper">
+            </div>
+        </div>
+
+        <div class="snow"></div>
+
+        <div id="content">
+
+            <div class="auf-userv2">
+
+                <div class="auf-userv2__header">
+                    <div class="auf-userv2__header__background">
+                        <img src="https://assets.afcdn.com/skins/1/common/images/forums/avatar/new/default.jpg">
+                    </div>
+
+
+                    <div class="auf-userv2__thumbnail auf-userv2__header__image auf-userv2__thumbnail--border auf-userv2__thumbnail--profile">
+                    </div>
+
+
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </body>
+<footer id="mrtn-footer">
+    <div class="foot-content">
+        <div class="go-to-top">
+            <i class="icon-rot-180 icon-icon_arrow_bottom mrtn-text-center"></i>
+        </div>
+        <p class="socials-items mrtn-text-center">
+            <a href="https://www.pinterest.com.au/wajihg/" class="_blank social-icon-holder">
+                <i class="icon-pinterest"></i>
+            </a>
+            <a href="https://www.facebook.com/wajih.ghali" class="_blank social-icon-holder">
+                <i class="icon-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/wajih_ghali/" class="_blank social-icon-holder">
+                <i class="icon-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCnxs3iBQ0D1dabawhNobEag?view_as=subscriber" class="social-icon-holder">
+                <i class="icon-youtube"></i>
+            </a>
+            <a href="https://assistant.google.com/services/invoke/uid/00000058f69ad4c0" class="_blank social-icon-holder">
+                <i class="icon-googleassistant"></i>
+            </a>
+        </p>
+        <div class="padded-content">
+            <div class="mrtn-autopromo-ctnr">
+                <a href="https://play.google.com/store/apps/details?id=com.cookware.worldcusinerecipes" class="_blank mrtn-autopromo">
+                    <span class="img-iphone"><img src="https://static.afcdn.com/relmrtn/Front/Component/footerLight/assets/iPhone.png" alt="Iphone" /></span>
+                    <p class="title-4">Retrouvez Hamhama où que vous soyez en téléchargeant l'application</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br>
+
+{% endblock %}

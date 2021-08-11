@@ -1,0 +1,10 @@
+<form method="post" action="{{ path('recipe_delete', {'id': recipe.id}) }}"
+      onsubmit="return confirm('Are you sure you want to delete this item?');" xmlns="http://www.w3.org/1999/html">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recipe.id) }}">
+    {% if is_granted('edit',recipe) %}
+        <button class="btn btn-danger" >Delete</button>
+    {% endif %}
+
+</form>
+

@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Recipe{% endblock %}
+
+{% block body %}
+    <div class="hdr-ctnr" id="header">
+        <header id="mrtn-header">
+
+            <div class="mrtn-header__top">
+                <div id="mrtn-navbar" class="search">
+
+                    <a href="{{ path('home') }}" class="mrtn-logo">
+                        <img height="100" width="100" src="/images/logo/logoF.png">
+                        <br>
+
+                    </a>
+                    <div class="separator"></div>
+                </div>
+                <div class="separator"></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="mrtn-login-zone">
+                    <div class="mrtn-login-link connected">
+                        <a >
+                            <span class="mrtn-avatar--empty--xlarge mrtn-avatar--empty mrtn-hide-on-print">{{ app.user.username|first }}</span></a>
+                        <div id="username" class="username">
+                            <a class="un" href="{{ path('recipe_post_user',{'username':app.user.username}) }}">{{ app.user.username}}</a>
+                            <br>
+                            <a href="{{ path('recipe_post_user',{'username':app.user.username}) }}" class="mrtn-btn mrtn-btn-secondary mrtn-btn-text-only mrtn-btn--small">Mes recettes</a>
+                            <a href="{{ path('security_logout') }}" class="mrtn-btn mrtn-btn-secondary mrtn-btn-text-only mrtn-btn--small">logOut</a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <nav id="header-main-menu">
+                <ul>
+                    <li>
+                        <a class="header-main-menu__item" href="/home">Aujourd'hui</a>
+                    </li>
+                    <li>
+                        <a class="header-main-menu__item " href="{{ path('recipe_index') }}">Recettes</a>
+                    </li>
+                    <li>
+
+                        <a class="header-main-menu__item selected" href="#">Ajouter une recette</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+        </header>
+    </div>
+    <div class="div-gpt-ad-banner_atf_wrapper af-banner" id="div-gpt-ad-banner_atf_wrapper" style="text-align: center;"><div id="div-gpt-ad-banner_atf"><script type="text/javascript">googletag.display("div-gpt-ad-banner_atf");afAd.detectOneCall("banner_atf");</script><div id="google_ads_iframe_229683329/marmiton/organic/others/banner_atf_0__container__" style="border: 0pt none; width: 1px; height: 1px;"></div></div></div><div id="content"><div class="hide j_overlay">
+
+    </div>
+    <div class="m_inscription_introduction_bulle">
+        <!-- Introduction -->
+
+        <h1 class="m_titre_lobster j_title">Ajouter une recette</h1>
+
+
+
+        {{ include('recipe/_form.html.twig') }}
+
+
+    </div>
+</div>
+<footer id="mrtn-footer">
+    <div class="foot-content">
+        <div class="go-to-top">
+            <i class="icon-rot-180 icon-icon_arrow_bottom mrtn-text-center"></i>
+        </div>
+        <p class="socials-items mrtn-text-center">
+            <a href="https://www.pinterest.com.au/wajihg/" class="_blank social-icon-holder">
+                <i class="icon-pinterest"></i>
+            </a>
+            <a href="https://www.facebook.com/wajih.ghali" class="_blank social-icon-holder">
+                <i class="icon-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/wajih_ghali/" class="_blank social-icon-holder">
+                <i class="icon-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCnxs3iBQ0D1dabawhNobEag?view_as=subscriber" class="social-icon-holder">
+                <i class="icon-youtube"></i>
+            </a>
+            <a href="https://assistant.google.com/services/invoke/uid/00000058f69ad4c0" class="_blank social-icon-holder">
+                <i class="icon-googleassistant"></i>
+            </a>
+        </p>
+        <div class="padded-content">
+            <div class="mrtn-autopromo-ctnr">
+                <a href="https://play.google.com/store/apps/details?id=com.cookware.worldcusinerecipes" class="_blank mrtn-autopromo">
+                    <span class="img-iphone"><img src="https://static.afcdn.com/relmrtn/Front/Component/footerLight/assets/iPhone.png" alt="Iphone" /></span>
+                    <p class="title-4">Retrouvez Hamhama où que vous soyez en téléchargeant l'application</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br>
+
+{% endblock %}
